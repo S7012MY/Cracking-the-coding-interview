@@ -11,11 +11,18 @@
  using namespace std;
 
 class employee {
+protected:
+	int id;
+	bool is_free_1;
 public:
 	static int last_id;
-	int id;
-	bool is_free;
-
+	bool is_free() {
+		return is_free_1;
+	}
+	void set_free(bool v) {
+		is_free_1=v;
+	}
+	employee() {id=last_id++;}
 };
 
 class fresher:public employee {};
@@ -25,11 +32,11 @@ class PM:public employee {};
 class call {};
 
 class call_handler {
-public:
+private:
 	TL tl;
 	PM pm;
  	vector<fresher> freshers;
-
+public:
  	call_handler(TL a,PM b) {
  		tl=a;
  		pm=b;
@@ -40,9 +47,9 @@ public:
 	}
 
 	employee getCallHandler() {
-		for(int i=0; i<freshers.size(); ++i) if(freshers[i].is_free) return freshers[i];
-		if(tl.is_free) return tl;
-		if(pm.is_free) return pm;
+		for(int i=0; i<freshers.size(); ++i) if(freshers[i].is_free()) return freshers[i];
+		if(tl.is_free()) return tl;
+		if(pm.is_free()) return pm;
 		throw 1;
 	}
 };

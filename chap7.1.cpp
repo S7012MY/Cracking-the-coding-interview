@@ -13,16 +13,20 @@ using namespace std;
 enum card_color {spades,clubs,hearts,diamonds};
 
 class card {
-public:
+protected:
 	int value;
 	card_color color;
+public:
 	card(enum card_color c,int v) {
 		color=c;
 		value=v;
 	}
+	card_color get_color() {return color;}
+	int get_value() {return value;}
 };
 
 class black_jack_card:public card {
+public:
 	int get_value() {
 		if(value==1) return 11;
 		if(value<10) return value;
@@ -31,7 +35,7 @@ class black_jack_card:public card {
 };
 
 class card_game {
-private:
+protected:
 	vector<card> deck;
 	int index;
 public:
